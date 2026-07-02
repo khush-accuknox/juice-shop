@@ -1,4 +1,5 @@
 name: TruffleHog Scan
+
 on:
   schedule:
     - cron: "30 2 * * *"
@@ -13,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required to get the full commit history.
+          fetch-depth: 0
 
       - name: AccuKnox Secret Scan
         uses: accuknox/secret-scan-action@latest
@@ -21,4 +22,5 @@ jobs:
           accuknox_token: ${{ secrets.AK_TOK }}
           accuknox_label: "dogfooding"
           accuknox_endpoint: "cspm.stage.accuknox.com"
+          sbom_project: "github-test"   # <-- Add here
           soft_fail: true
