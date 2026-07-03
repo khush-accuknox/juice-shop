@@ -1,0 +1,24 @@
+name: AccuKnox API Discovery
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  api-discovery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AccuKnox API Discovery
+        uses: Vickydew1/Accuknox-Code-Analysis@main
+        with:
+          scan_type: "api-discovery"
+
+          accuknox_token: ${{ secrets.ACCUKNOX_TOKEN }}
+          accuknox_endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
+          accuknox_label: ${{ secrets.ACCUKNOX_LABEL }}
+
+          soft_fail: true
+          upload_artifact: true

@@ -1,0 +1,25 @@
+name: AccuKnox ML Static Scan
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  ml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AccuKnox ML Static Scan
+        uses: Vickydew1/Accuknox-Code-Analysis@main
+        with:
+          scan_type: "ml"
+
+          accuknox_token: ${{ secrets.ACCUKNOX_TOKEN }}
+          accuknox_endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
+          accuknox_label: ${{ secrets.ACCUKNOX_LABEL }}
+
+          soft_fail: true
+          upload_artifact: true
