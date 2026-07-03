@@ -1,20 +1,28 @@
 name: AccuKnox SBOM
+
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+
 jobs:
   sbom:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v7.0.0
-      - name: Run AccuKnox SBOM (filesystem)
-        uses: accuknox/accuknox-code-analysis@latest
+      - uses: actions/checkout@v4
+
+      - name: Run AccuKnox SBOM
+        uses: accuknox/Accuknox-Code-Analysis@main
+
         with:
           scan_type: "sbom"
+
           accuknox_token: ${{ secrets.ACCUKNOX_TOKEN }}
           accuknox_endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
-          accuknox_label: ${{ secrets.ACCUKNOX_LABEL }}
+          accuknox_label: "github"
+
           sbom_scan_type: "filesystem"
           sbom_scan_path: "."
-          sbom_project_name: "github-test"   # required for SBOM
+          sbom_project_name: "github-test"
+
           soft_fail: true
+          upload_artifact: true
