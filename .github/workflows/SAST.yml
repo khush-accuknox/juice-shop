@@ -1,0 +1,26 @@
+name: AccuKnox SAST
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AccuKnox SAST
+        uses: Vickydew1/Accuknox-Code-Analysis@main
+        with:
+          scan_type: "sast"
+
+          accuknox_token: ${{ secrets.ACCUKNOX_TOKEN }}
+          accuknox_endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
+          accuknox_label: ${{ secrets.ACCUKNOX_LABEL }}
+
+          sast_severity: "HIGH,CRITICAL"
+
+          soft_fail: true
+          upload_artifact: true

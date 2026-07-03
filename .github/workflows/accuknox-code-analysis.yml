@@ -1,0 +1,41 @@
+name: AccuKnox Code Analysis Workflow
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run AccuKnox Code Analysis
+        uses: Vickydew1/Accuknox-Code-Analysis@main
+        with:
+          # Run all scanners
+          scan_type: "sast, sca, secret, iac, ml, api-discovery, sbom"
+
+          # AccuKnox credentials
+          accuknox_token: ${{ secrets.ACCUKNOX_TOKEN }}
+          accuknox_endpoint: ${{ secrets.ACCUKNOX_ENDPOINT }}
+          accuknox_label: ${{ secrets.ACCUKNOX_LABEL }}
+
+          # Continue even if findings are detected
+          soft_fail: true
+
+          # Upload scan results as GitHub artifact
+          upload_artifact: true
+
+          # SBOM configuration
+          sbom_scan_type: "filesystem"
+          sbom_scan_path: "."
+          sbom_project_name: "github-test"
