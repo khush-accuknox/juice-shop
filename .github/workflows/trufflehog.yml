@@ -20,7 +20,6 @@ jobs:
         uses: accuknox/secret-scan-action@latest
         with:
           accuknox_token: ${{ secrets.AK_TOK }}
-          accuknox_label: "dogfooding"
+          accuknox_label: "github"
           accuknox_endpoint: "cspm.stage.accuknox.com"
-          sbom_project: "github-test"   # <-- Add here
           soft_fail: true
