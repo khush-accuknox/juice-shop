@@ -1,7 +1,7 @@
 name: AccuKnox SBOM
 on:
   push:
-    branches: [master]
+    branches: [main]
 jobs:
   sbom:
     runs-on: ubuntu-latest
